@@ -36,12 +36,12 @@ import { getUserDetails } from "./services/operations/profileAPI"
 import { ACCOUNT_TYPE } from "./utils/constants"
 
 //signmodel
-import Learn from './components/core/SignModel/component/Learn';
-import Translate from './components/core/SignModel/component/Translate';
-import Board from './components/core/SignModel/component/Board';
-import Alphabet from './components/core/SignModel/component/Alphabet';
-import Numbers from './components/core/SignModel/component/Numbers';
-import CommonPhrases from './components/core/SignModel/component/CommonPhrases';
+// import Learn from './components/core/SignModel/component/Learn';
+// import Translate from './components/core/SignModel/component/Translate';
+// import Board from './components/core/SignModel/component/Board';
+// import Alphabet from './components/core/SignModel/component/Alphabet';
+// import Numbers from './components/core/SignModel/component/Numbers';
+// import CommonPhrases from './components/core/SignModel/component/CommonPhrases';
 
 function App() {
   const dispatch = useDispatch()
@@ -68,13 +68,13 @@ function App() {
         <Route path="courses/:courseId" element={<CourseDetails />} />
         <Route path="catalog/:catalogName" element={<Catalog />} />
 
-        {/* signmodel routes for all */}
+        /* {/* signmodel routes for all */}
         <Route path="/signmodel/translate" element={<Translate />} />
         <Route path="/signmodel/learn" element={<Learn />} />
         <Route path="/signmodel/whiteboard" element={<Board/>} />
         <Route path="/signmodel/learn/alphabet" element={<Alphabet/>} />
         <Route path="/signmodel/learn/numbers" element={<Numbers/>} />
-        <Route path="/signmodel/learn/commonphrases" element={<CommonPhrases/>} />
+        <Route path="/signmodel/learn/commonphrases" element={<CommonPhrases/>} /> */
 
         {/* Open Route - for Only Non Logged in User */}
         <Route
