@@ -20,12 +20,19 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true,
+      index: true,
     },
 
     // Define the password field with type String and required
+    // select: false means this field is EXCLUDED from every query by
+    // default (e.g. .populate("instructor") will no longer leak this).
+    // Any code that genuinely needs it must explicitly opt in with
+    // .select("+password").
     password: {
       type: String,
       required: true,
+      select: false,
     },
     // Define the role field with type String and enum values of "Admin", "Student", or "Visitor"
     accountType: {

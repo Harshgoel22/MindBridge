@@ -9,6 +9,7 @@ const contactUsRoute = require("./routes/Contact");
 const database = require("./config/database");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const compression = require("compression");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
@@ -23,6 +24,7 @@ dotenv.config();
 database.connect();
 
 // Middlewares
+app.use(compression()); // gzip/brotli-compress every response
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -60,5 +62,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
 	console.log(`App is listening at ${PORT}`);
 });
-
-// End of code.

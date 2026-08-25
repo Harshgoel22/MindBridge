@@ -129,7 +129,9 @@ exports.login = async (req, res) => {
     }
 
     // Find user with provided email
-    const user = await User.findOne({ email }).populate("additionalDetails")
+    const user = await User.findOne({ email })
+      .select("+password")
+      .populate("additionalDetails")
 
     // If user not found with provided email
     if (!user) {
@@ -231,7 +233,7 @@ exports.sendotp = async (req, res) => {
 exports.changePassword = async (req, res) => {
   try {
     // Get user data from req.user
-    const userDetails = await User.findById(req.user.id)
+    const userDetails = await User.findById(req.user.id).select("+password")
 
     // Get old password, new password, and confirm new password from req.body
     const { oldPassword, newPassword } = req.body

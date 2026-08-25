@@ -235,23 +235,39 @@ exports.editCourse = async (req, res) => {
 // Get Course List
 exports.getAllCourses = async (req, res) => {
   try {
-    const allCourses = await Course.find(
-      { status: "Published" },
-      {
+    // Pagination — defaults to page 1, 12 courses per page.
+    // e.g. GET /api/v1/course/getAllCourses?page=2&limit=12
+    const page = Math.max(parseInt(req.query.page, 10) || 1, 1)
+    const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 12, 1), 50) // cap at 50 to prevent abuse
+    const skip = (page - 1) * limit
+
+    const filter = { status: "Published" }
+
+    const [allCourses, totalCourses] = await Promise.all([
+      Course.find(filter, {
         courseName: true,
         price: true,
         thumbnail: true,
         instructor: true,
         ratingAndReviews: true,
         studentsEnrolled: true,
-      }
-    )
-      .populate("instructor")
-      .exec()
+      })
+        .populate({ path: "instructor", select: "firstName lastName email" })
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      Course.countDocuments(filter),
+    ])
 
     return res.status(200).json({
       success: true,
       data: allCourses,
+      pagination: {
+        page,
+        limit,
+        totalCourses,
+        totalPages: Math.ceil(totalCourses / limit),
+      },
     })
   } catch (error) {
     console.log(error)
