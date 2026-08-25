@@ -3,6 +3,9 @@
   "description": "This is the client side of the StudyNotion App",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@google/generative-ai": "^0.21.0",
