@@ -9,7 +9,7 @@ An end-to-end EdTech platform where instructors can build and publish courses, a
 
 ## Table of Contents
 
-- [Screenshots](#screenshots)
+<!-- - [Screenshots](#screenshots) -->
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [System Architecture](#system-architecture)
@@ -22,17 +22,17 @@ An end-to-end EdTech platform where instructors can build and publish courses, a
 
 ---
 
-## Screenshots
+<!-- ## Screenshots
 
 | | |
 |---|---|
-| **Homepage** ![Homepage](screenshots/homepage.svg) | **Course Catalog** ![Catalog](screenshots/course-catalog.svg) |
-| **Course Details** ![Course Details](screenshots/course-details.svg) | **Video Player & Progress** ![Video Player](screenshots/video-player.svg) |
+| **Homepage** ![Homepage](screenshots/homepage.png) | **Course Catalog** ![Catalog](screenshots/course-catalog.png) |
+| **Course Details** ![Course Details](screenshots/course-details.svg) | **Enrolled Courses & Progress Bar** ![Video Player](screenshots/enrolled_progress_bar.png) |
 | **Student Dashboard** ![Student Dashboard](screenshots/student-dashboard.svg) | **Instructor Dashboard** ![Instructor Dashboard](screenshots/instructor-dashboard.svg) |
 | **Add Course Wizard** ![Add Course](screenshots/add-course.svg) | **Cart & Checkout** ![Cart](screenshots/cart-checkout.svg) |
 | **MediBot Assistant** ![MediBot](screenshots/medibot.svg) | **Mobile Navigation** ![Mobile Nav](screenshots/mobile-nav.svg) |
 
----
+--- -->
 
 ## Features
 
