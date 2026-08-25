@@ -36,6 +36,11 @@ export async function BuyCourse(
   dispatch
 ) {
   const toastId = toast.loading("Loading...")
+  // Set loading immediately, before any async work starts. This is what
+  // actually prevents double-clicks — the button's page is swapped for a
+  // full-screen spinner the instant the first click registers, so a second
+  // click has nothing left to land on.
+  dispatch(setPaymentLoading(true))
   try {
     // Loading the script of Razorpay SDK  
     const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
@@ -44,6 +49,8 @@ export async function BuyCourse(
       toast.error(
         "Razorpay SDK failed to load. Check your Internet Connection."
       )
+      dispatch(setPaymentLoading(false))
+      toast.dismiss(toastId)
       return
     }
 
@@ -60,16 +67,12 @@ export async function BuyCourse(
     )
 
     if (!orderResponse.data.success) {
-      console.log("heelllo----helllooo")
       throw new Error(orderResponse.data.message)
     }
-    console.log("PAYMENT RESPONSE FROM BACKEND............", orderResponse.data)
 
     // Opening the Razorpay SDK
-    console.log("--------> ",orderResponse.data.data)
-
     const options = {
-      key: process.env.RAZORPAY_KEY,
+      key: process.env.REACT_APP_RAZORPAY_KEY,
       currency: orderResponse.data.data.currency,
       amount: `${orderResponse.data.data.amount}`,
       order_id: orderResponse.data.data.id,
@@ -88,6 +91,12 @@ export async function BuyCourse(
     const paymentObject = new window.Razorpay(options)
 
     paymentObject.open()
+    // The popup is now genuinely open and interactive — release the
+    // full-page spinner so the user isn't stuck looking at it behind the
+    // modal. verifyPayment() will set loading back to true once the user
+    // actually completes payment inside the popup.
+    dispatch(setPaymentLoading(false))
+
     paymentObject.on("payment.failed", function (response) {
       toast.error("Oops! Payment Failed.")
       console.log(response.error)
@@ -95,6 +104,7 @@ export async function BuyCourse(
   } catch (error) {
     console.log("PAYMENT API ERROR............", error)
     toast.error("Could Not make Payment.")
+    dispatch(setPaymentLoading(false))
   }
   toast.dismiss(toastId)
 }
