@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const mailSender = async (email, title, body) => {
   const apiKey = process.env.BREVO_API_KEY;
   const senderEmail = process.env.BREVO_SENDER_EMAIL;
@@ -8,31 +10,34 @@ const mailSender = async (email, title, body) => {
     );
   }
 
-  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "api-key": apiKey,
-    },
-    body: JSON.stringify({
-      sender: { name: "MindBridge", email: senderEmail },
-      to: [{ email }],
-      subject: title,
-      htmlContent: body,
-    }),
-  });
+  try {
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: { name: "MindBridge", email: senderEmail },
+        to: [{ email }],
+        subject: title,
+        htmlContent: body,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "api-key": apiKey,
+        },
+      }
+    );
 
-  if (!response.ok) {
-    const errorBody = await response.text();
+    console.log("Email sent via Brevo, messageId:", response.data.messageId);
+    return response.data;
+  } catch (error) {
     // Throwing here (instead of swallowing) means callers' existing
     // try/catch blocks correctly report success: false when email fails.
-    throw new Error(`Brevo API error (${response.status}): ${errorBody}`);
+    const details = error.response
+      ? `${error.response.status}: ${JSON.stringify(error.response.data)}`
+      : error.message;
+    throw new Error(`Brevo API error - ${details}`);
   }
-
-  const data = await response.json();
-  console.log("Email sent via Brevo, messageId:", data.messageId);
-  return data;
 };
 
 module.exports = mailSender;

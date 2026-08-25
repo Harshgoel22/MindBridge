@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#161D29"/>
+  <rect x="20" y="20" width="760" height="410" fill="none" stroke="#2C333F" stroke-width="2" stroke-dasharray="8,6"/>
+  <text x="400" y="210" font-family="Arial, sans-serif" font-size="26" fill="#FFD60A" text-anchor="middle" font-weight="bold">Course Details Page</text>
+  <text x="400" y="245" font-family="Arial, sans-serif" font-size="15" fill="#AFB2BF" text-anchor="middle">Replace this file with a real screenshot</text>
+  <text x="400" y="270" font-family="Arial, sans-serif" font-size="13" fill="#6E727F" text-anchor="middle">(keep the same filename, or update the README image path)</text>
+</svg>
