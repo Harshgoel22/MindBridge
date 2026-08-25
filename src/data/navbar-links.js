@@ -14,9 +14,9 @@ export const NavbarLinks = [
   {
     title: "Contact Us",
     path: "/contact",
-  },
-  {
-    title: "Sign Language Model",
-    path: "/signmodel"
+  // },
+  // {
+  //   title: "Sign Language Model",
+  //   path: "/signmodel"
   }
 ];
